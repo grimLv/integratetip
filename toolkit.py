@@ -31,7 +31,9 @@ def UnblockUDisk():
     isSuccess(result) 
 
 def OpenTaichoFile():
-    pass
+    cmd_file='opentaicho.cmd'
+    result = os.popen(cmd_file).read()
+    isSuccess(result) 
 
 def ViewComputerInfo():
     computer_info_window=tk.Toplevel()
@@ -125,9 +127,14 @@ def showWindow():
 
 def isSuccess(result_ref):
     if result_ref.count("success") > 0:
-        tm.showinfo("信息","执行成功!") 
+        tm.showinfo("信息","执行成功!")
+        return
+    elif result_ref.count("network connect error") > 0:
+        tm.showerror("错误","网络连接故障，请检查网络！")
+        return
     else:
         tm.showerror("错误","程序运行出错！")
+        return
 
 if __name__=="__main__":
     showWindow()
